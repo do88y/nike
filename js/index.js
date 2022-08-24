@@ -2,14 +2,13 @@ $(function () {
     let winWidth;
     $(window).resize(function () {
         winWidth=$(this).width();
-        if(winWidth <=1024) {
+        if(winWidth <= 1024) {
             $('.main-menu').off('mouseenter');
             $('.main-menu').off('mouseleave');
             $('nav').prependTo('.h-top');
             $('.jordan-logo').find('img').attr('src','images/AIR-JORDAN-LOGO-b.svg');
         }else {
             $('nav').appendTo('header');
-            
             $('.jordan-logo').find('img').attr('src','images/AIR-JORDAN-LOGO.svg');
             $('.main-menu').on({
                 mouseenter: function () {
@@ -20,12 +19,12 @@ $(function () {
                 }
             });
         }
-    });  // resize이벤트 종료
-    $(window).trigger('resize');  // 강제 이벤트 발생-> 창을 닫으면 그 사이즈로 다시 뜨기 때문에
+    }); //resize이벤트 종료
+    $(window).trigger('resize');//강제 이벤트 발생
     $('.menu-btn').click(function (event) {
-        event.stopPropagation();  // 이벤트 전달을 막는 것
-        $('.index-wrap').css('filter','blur(10px');
-        $('body,html').css({
+        event.stopPropagation();
+        $('.index-wrap').css('filter','blur(10px)');
+        $('body, html').css({
             height:'100vh',
             overflow:'hidden'
         });
@@ -33,25 +32,26 @@ $(function () {
         $('.h-top').animate({
             right:'0%'
         },'fast');
-    });  // 태블릿, 모바일에서 사용하는 메뉴 종료
-    $('.main-menu>li>a').click(function () {
+    }); //태블릿, 모바일에서 사용하는 메뉴 종료
+    $('.main-menu>li>a').click(function (event) {
+        event.stopPropagation();
         $(this).siblings('.sub-menu').animate({
             left:'0%'
-        },'fast');
+        },'fast');        
     });
-    $('.all>a').click(function (event) {
+    $('.all> a').click(function (event) {
         event.stopPropagation();
         $(this).parents('.sub-menu').animate({
             left:'150%'
         },'fast');
     });
-    $('menu-area').click(function () {
-        $('index-wrap').css('filter','blur(0px)');
-        $('body,html').css({
+    $('.menu-area').click(function () {        
+        $('.index-wrap').css('filter','blur(0px)');
+        $('body, html').css({
             height:'auto',
             overflow:'visible'
         });
-        $('h-top').animate({
+        $('.h-top').animate({
             right:'-100%'
         },'fast',function () {
             $('.menu-area').hide();
@@ -68,30 +68,30 @@ $(function () {
         $('.main-03 img').attr('src','images/M-03.png');
     }
 
-    // swiper 플러그인
-    let swiperSlide=new swiperSlide('.Featured-slide', {
-        // 모바일 기준
-        slidesPerView:'auto',  // 60%로 정해놓은 그대로
+    //swiper 플러그인
+    let swiperSlide=new Swiper('.Featured-slide', {
+        //모바일 기준
+        slidesPerView:'auto',
         spaceBetween:8,
         pagination:{
             el:'.f-pager',
             clickable:true,
-            type:'fraction'  // 이걸 쓰면 navigation이 꼭 들어가야 한다
+            type:'fraction'  //'fraction'-<좌우> 'bullets' - 원형버튼
         },
         navigation: {
             prevEl:'.f-prev',
             nextEl:'.f-next'
         },
-        // 반응형(화면 넓이에 따라 레이아웃 변경)
+        //반응형(화면 넓이에 따라 레이아웃 변경)
         breakpoints:{
             1025: {
-                slidesPerView:3,  // 화면에 3개 들어오게
+                slidesPerView:3,
                 spaceBetween:24
+            },
+            480: {
+                slidesPerView:'auto',
+                spaceBetween:16
             }
-        },
-        480: {
-            slidesPerView:'auto',
-            spaceBetween:16
         }
     });
 });
